@@ -1,0 +1,8 @@
+{
+    "serverEndpoint": "127.0.0.1:5001",
+    "serverReadTimeout": 5,
+    "serverWriteTimeout": 5,
+    "serverHeaderAccessControlAllowOrigin": "127.0.0.1",
+    "jwtSigningKey": "secret-here",
+    "jtwValidityInHours": 12
+}
