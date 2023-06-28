@@ -1,20 +1,12 @@
 package main
 
 import (
-	"time"
+	"os"
 
 	"github.com/jwo_auth/internal/api"
+	"github.com/jwo_auth/internal/common"
 	"github.com/jwo_auth/internal/database"
 )
-
-type Config struct {
-	serverEndpoint                       string
-	serverReadTimeout                    time.Duration
-	serverWriteTimeout                   time.Duration
-	serverHeaderAccessControlAllowOrigin string
-	jwtSigningKey                        string
-	jwtValidityInHours                   time.Duration
-}
 
 type Application struct {
 	server   api.Server
@@ -23,12 +15,17 @@ type Application struct {
 
 func (app Application) Start() {}
 
-func NewApplication(config *Config) *Application {
+func NewApplication(config *common.Config) *Application {
 	return &Application{}
 }
 
 func main() {
-	config := &Config{}
-	app := NewApplication(config)
-	app.Start()
+	config, err := common.ReadConfig()
+
+	if err != nil {
+		os.Exit(1)
+	} else {
+		app := NewApplication(config)
+		app.Start()
+	}
 }
