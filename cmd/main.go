@@ -5,18 +5,21 @@ import (
 
 	"github.com/jwo_auth/internal/api"
 	"github.com/jwo_auth/internal/common"
-	"github.com/jwo_auth/internal/database"
 )
 
 type Application struct {
-	server   api.Server
-	database database.Database
+	apiServer *api.ApiServer
+	//TODO: Add additional dependencies here.
 }
 
-func (app Application) Start() {}
+func (app Application) Start() {
+	app.apiServer.Start()
+}
 
 func NewApplication(config *common.Config) *Application {
-	return &Application{}
+	return &Application{
+		apiServer: api.NewApiServer(config),
+	}
 }
 
 func main() {
